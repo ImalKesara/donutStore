@@ -9,3 +9,58 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  id                     String                 @id @default(uuid())
+  name                   String
+  priceInCents           Int
+  filePath               String
+  imagePath              String
+  description            String
+  isAvailableForPurchase Boolean                @default(true)
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  downloadVerification   DownloadVerification[]
+  Order                  Order[]
+}
+
+model User {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  order          Order[]
+  session        Session[]
+  isAdmin        Boolean   @default(false)
+  username       String    @unique
+  hashedPassword String?
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  //                                                   user id
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id           String   @id @default(uuid())
+  userId       String
+  priceInCents Int
+  //                                                           user id       used to specify that when a row is deleted from the parent table, all rows in the child table that reference the deleted row should also be deleted
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId    String
+  //                                                               product id
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model DownloadVerification {
+  id        String   @id @default(uuid())
+  expiredAt DateTime
+  createdAt DateTime @default(now())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
