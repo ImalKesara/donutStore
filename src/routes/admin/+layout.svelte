@@ -4,6 +4,7 @@
 	import { cn } from '$lib/utils';
 	let pathname = $derived($page.url.pathname);
 	let { children } = $props();
+	console.log(pathname)
 </script>
 
 <Navbar>
@@ -11,9 +12,11 @@
 	{@render navLink({ href: '/admin/products', text: 'Products' })}
 	{@render navLink({ href: '/admin/users', text: 'Customers' })}
 	{@render navLink({ href: '/admin/orders', text: 'Sales' })}
+
+	<!-- logout button -->
 </Navbar>
 
-<div>
+<div class="container my-6">
 	{@render children()}
 </div>
 
