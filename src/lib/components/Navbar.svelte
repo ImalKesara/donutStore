@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
+	import type { Snippet } from 'svelte';
 
-    type Children ={
-        children :Snippet
-    }
+	type Children = {
+		children: Snippet;
+	};
 
-    let {children}: Children = $props()
+	let { children }: Children = $props();
 </script>
 
-<nav class="flex items-center justify-center bg-primary px-4 text-primary-foreground">
-    {@render children()}
+<nav class="bg-primary text-primary-foreground flex list-none items-center justify-between px-4">
+	{@render children()}
 </nav>
