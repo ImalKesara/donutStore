@@ -12,6 +12,22 @@ async function getSalesData() {
 	};
 }
 
+async function getUserData() {
+	const [userCount, orderData] = await Promise.all([
+		await db.user.count(),
+		await db.order.aggregate({
+			_sum: { priceInCents: true }
+		})
+	]);
+
+	return {
+		userCount,
+		averageValuePerUser: userCount === 0 ? 0 : (orderData._sum.priceInCents || 0) / userCount / 1000
+	};
+}
+
+
+
 export const load = async () => {
 	return {};
 };
