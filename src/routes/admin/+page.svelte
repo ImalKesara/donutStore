@@ -1,34 +1,36 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
-	import { formartNumber } from '$lib/utils';
+	import { formartNumber, formatCurrency } from '$lib/utils';
 
 	type DashboardCardProps = {
 		title: string;
 		subtitle: string;
 		body: string;
 	};
+	let { data } = $props();
+	let { salesData, productData, userData } = $derived(data);
 </script>
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 	<div>
 		{@render dashboard({
 			title: 'Sales',
-			subtitle: `${formartNumber(2000)} Orders`,
-			body: '$1,000.00'
+			subtitle: `${formartNumber(salesData.numberOfSales)} Orders`,
+			body: formatCurrency(salesData.amount)
 		})}
 	</div>
 	<div>
 		{@render dashboard({
-			title: 'Total Sales',
-			subtitle: 'This Month',
-			body: '$1,000.00'
+			title: 'Customers',
+			subtitle: `${formatCurrency(userData.averageValuePerUser)} Average Value`,
+			body: formartNumber(userData.userCount)
 		})}
 	</div>
 	<div>
 		{@render dashboard({
-			title: 'Total Sales',
-			subtitle: 'This Month',
-			body: '$1,000.00'
+			title: 'Active Products',
+			subtitle: `${formartNumber(productData.inactiveCount)} orders`,
+			body: formartNumber(productData.activeCount)
 		})}
 	</div>
 </div>
