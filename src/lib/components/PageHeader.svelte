@@ -7,6 +7,6 @@
 	let { children }: PageHeaderType = $props();
 </script>
 
-<div class="mb-4 text-2xl font-semibold">
+<div class="mb-4 text-3xl font-semibold">
 	{@render children()}
 </div>

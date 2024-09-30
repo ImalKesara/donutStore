@@ -8,6 +8,6 @@
 	let { children }: Children = $props();
 </script>
 
-<nav class="bg-primary text-primary-foreground flex list-none items-center justify-between px-4">
+<nav class="bg-primary text-primary-foreground flex list-none items-center justify-center px-4">
 	{@render children()}
 </nav>

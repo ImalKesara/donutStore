@@ -4,7 +4,6 @@
 	import { cn } from '$lib/utils';
 	let pathname = $derived($page.url.pathname);
 	let { children } = $props();
-	console.log(pathname)
 </script>
 
 <Navbar>

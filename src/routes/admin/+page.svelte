@@ -29,10 +29,11 @@
 	<div>
 		{@render dashboard({
 			title: 'Active Products',
-			subtitle: `${formartNumber(productData.inactiveCount)} orders`,
+			subtitle: `${formartNumber(productData.inactiveCount)} Inactive`,
 			body: formartNumber(productData.activeCount)
 		})}
 	</div>
+	
 </div>
 
 {#snippet dashboard({ title, subtitle, body }: DashboardCardProps)}
