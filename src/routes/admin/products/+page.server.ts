@@ -19,3 +19,18 @@ export const load = async () => {
 		})
 	};
 };
+
+export const actions = {
+	toggleAvailability: async ({ request }) => {
+		const formData = await request.formData();
+		//  name = "id" in form
+		const id = formData.get('id') as string;
+		const isAvailableForPurchase = formData.has('isAvailableForPurchase');
+		await db.product.update({
+			where: { id },
+			data: {
+				isAvailableForPurchase
+			}
+		});
+	}
+};
