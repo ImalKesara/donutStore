@@ -73,6 +73,7 @@
 									</DropdownMenu.Item>
 								</button>
 								<input type="hidden" name="id" value={product.id} />
+								<!-- check true of false here checked = true unchecked = false -->
 								<input
 									type="checkbox"
 									name="isAvailableForPurchase"
