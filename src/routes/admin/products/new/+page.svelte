@@ -2,15 +2,23 @@
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
 	import PageHeader from '$lib/components/PageHeader.svelte';
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm, fileProxy } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { addFormSchema } from '$lib/formSchema.js';
+	import { Textarea } from '$lib/components/ui/textarea';
+	import { Button } from '$lib/components/ui/button';
+	import { Loader } from 'lucide-svelte';
+	import { formatCurrency } from '$lib/utils.js';
 	const { data } = $props();
 	const form = superForm(data.form, {
 		validators: zodClient(addFormSchema)
 	});
 
 	let { form: formData, delayed, enhance } = form;
+	// 								name = "file"
+	const file = fileProxy(formData, 'file');
+	// 								name = "image"
+	const image = fileProxy(formData, 'image');
 </script>
 
 <PageHeader>Add Products</PageHeader>
@@ -23,6 +31,7 @@
 	use:enhance
 	enctype="multipart/form-data"
 >
+	<!-- product name (name="name" means check out formSchema.ts file)-->
 	<Form.Field {form} name="name">
 		<Form.Control let:attrs>
 			<Form.Label>Product name</Form.Label>
@@ -30,4 +39,53 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
+
+	<!-- price in cents -->
+	<Form.Field {form} name="priceInCents">
+		<Form.Control let:attrs>
+			<Form.Label>Price in Cents</Form.Label>
+			<Input type="number" {...attrs} bind:value={$formData.priceInCents} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<div class="text-sm text-muted-foreground">
+		{`Price in ${formatCurrency($formData.priceInCents / 100)}`}
+	</div>
+
+	<!-- Product Description -->
+	<Form.Field {form} name="description">
+		<Form.Control let:attrs>
+			<Form.Label>Product Description</Form.Label>
+			<Textarea {...attrs} bind:value={$formData.description} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<!-- File -->
+	<Form.Field {form} name="file">
+		<Form.Control let:attrs>
+			<Form.Label>Product File</Form.Label>
+			<input {...attrs} type="file" bind:files={$file} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<!-- Image -->
+	<Form.Field {form} name="image">
+		<Form.Control let:attrs>
+			<Form.Label>Product Image</Form.Label>
+			<!-- accept any image type -->
+			<input {...attrs} accept="image/*" type="file" bind:files={$image} />
+		</Form.Control>
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<Button type="submit" class="w-full">
+		{#if $delayed}
+			<Loader class="size-4 animate-spin" />
+		{:else}
+			Add Product
+		{/if}
+	</Button>
 </form>
