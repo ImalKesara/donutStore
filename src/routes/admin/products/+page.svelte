@@ -8,12 +8,12 @@
 	import { Check } from 'lucide-svelte';
 	import { CircleX } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
+	// reactive value do not destrcuter
 	let { data } = $props();
-	let { products } = data;
 </script>
 
 <div class="flex items-center justify-between gap-4">
-	<PageHeader>Prodcuts</PageHeader>
+	<PageHeader>All Prodcuts</PageHeader>
 	<Button href="/admin/products/new">Add Products</Button>
 </div>
 
@@ -32,7 +32,7 @@
 		</Table.Row>
 	</Table.Header>
 	<Table.Body>
-		{#each products as product}
+		{#each data.products as product}
 			<Table.Row>
 				<Table.Cell>
 					{#if product.isAvailableForPurchase}
@@ -62,8 +62,8 @@
 								>Edit</DropdownMenu.Item
 							>
 							<!-- Toggle status Active/Inactive Status -->
-							<form action="?/toggleAvailability" method="POST" use:enhance>
-								<button type="submit" class="w-full text-destructive">
+							<form action="?/toggleAvailability" use:enhance method="POST">
+								<button type="submit" class="w-full">
 									<DropdownMenu.Item>
 										{#if product.isAvailableForPurchase}
 											Deactivate
@@ -82,7 +82,14 @@
 								/>
 							</form>
 							<!-- Delete product -->
-							<form action=""></form>
+							<form action="?/deleteProduct" use:enhance method="POST">
+								<button class="w-full text-destructive" disabled={product._count.order > 0}>
+									<DropdownMenu.Item type="submit" disabled={product._count.order > 0}
+										>Delete</DropdownMenu.Item
+									>
+								</button>
+								<input type="hidden" name="id" value={product.id} />
+							</form>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				</Table.Cell>
