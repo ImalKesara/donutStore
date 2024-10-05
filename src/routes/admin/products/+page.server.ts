@@ -47,7 +47,8 @@ export const actions = {
 			where: { id }
 		});
 
+		// `static${imagePath}`
 		await fs.unlink(deletedProduct.filePath);
-		await fs.unlink(deletedProduct.imagePath);
+		await fs.unlink(`static${deletedProduct.imagePath}`);
 	}
 };
