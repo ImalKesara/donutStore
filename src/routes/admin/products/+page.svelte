@@ -7,7 +7,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Check } from 'lucide-svelte';
 	import { CircleX } from 'lucide-svelte';
-	
+
 	import { enhance } from '$app/forms';
 	// reactive value do not destrcuter
 	let { data } = $props();
@@ -38,10 +38,10 @@
 				<Table.Cell>
 					{#if product.isAvailableForPurchase}
 						<span class="sr-only">Available</span>
-						<CircleCheckBig />
+						<CircleCheckBig class="text-sky-300" />
 					{:else}
 						<span class="sr-only">Unavailable</span>
-						<CircleX />
+						<CircleX class="text-gray-300" />
 					{/if}
 				</Table.Cell>
 				<Table.Cell>{product.name}</Table.Cell>
@@ -59,9 +59,7 @@
 								>Download</DropdownMenu.Item
 							>
 							<!-- edit product details -->
-							<DropdownMenu.Item href="/admin/products/{product.id}/edit"
-								>Edit</DropdownMenu.Item
-							>
+							<DropdownMenu.Item href="/admin/products/{product.id}/edit">Edit</DropdownMenu.Item>
 							<!-- Toggle status Active/Inactive Status -->
 							<form action="?/toggleAvailability" use:enhance method="POST">
 								<button type="submit" class="w-full">
