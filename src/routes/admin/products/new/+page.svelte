@@ -8,6 +8,7 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { Button } from '$lib/components/ui/button';
 	import { Loader } from 'lucide-svelte';
+
 	import { formatCurrency } from '$lib/utils.js';
 	const { data } = $props();
 	const form = superForm(data.form, {
@@ -66,7 +67,17 @@
 	<Form.Field {form} name="file">
 		<Form.Control let:attrs>
 			<Form.Label>Product File</Form.Label>
-			<input {...attrs} type="file" bind:files={$file} />
+			<input
+				{...attrs}
+				type="file"
+				bind:files={$file}
+				class="block w-full text-sm text-slate-500
+			file:mr-4 file:rounded-full file:border-0
+			file:bg-violet-50 file:px-4
+			file:py-2 file:text-sm
+			file:font-semibold file:text-black
+			hover:file:bg-violet-100"
+			/>
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
@@ -76,7 +87,18 @@
 		<Form.Control let:attrs>
 			<Form.Label>Product Image</Form.Label>
 			<!-- accept any image type -->
-			<input {...attrs} accept="image/*" type="file" bind:files={$image} />
+			<input
+				{...attrs}
+				accept="image/*"
+				type="file"
+				bind:files={$image}
+				class="block w-full text-sm text-slate-500
+			file:mr-4 file:rounded-full file:border-0
+			file:bg-violet-50 file:px-4
+			file:py-2 file:text-sm
+			file:font-semibold file:text-black
+			hover:file:bg-violet-100"
+			/>
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>

@@ -27,8 +27,8 @@ export const actions = {
 		// create products-image folder
 		await fs.mkdir('static/productsIMG', { recursive: true });
 		// image path
-		const imagePath = `static/productsIMG/${crypto.randomUUID()}-${form.data.image.name}`;
-		await fs.writeFile(imagePath, Buffer.from(await form.data.image.arrayBuffer()));
+		const imagePath = `/productsIMG/${crypto.randomUUID()}-${form.data.image.name}`;
+		await fs.writeFile(`static${imagePath}`, Buffer.from(await form.data.image.arrayBuffer()));
 
 		try {
 			await db.product.create({

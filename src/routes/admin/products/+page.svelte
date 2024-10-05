@@ -2,11 +2,12 @@
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Table from '$lib/components/ui/table';
-	import { EllipsisVertical } from 'lucide-svelte';
+	import { CircleCheckBig, EllipsisVertical } from 'lucide-svelte';
 	import { formartNumber, formatCurrency } from '$lib/utils.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Check } from 'lucide-svelte';
 	import { CircleX } from 'lucide-svelte';
+	
 	import { enhance } from '$app/forms';
 	// reactive value do not destrcuter
 	let { data } = $props();
@@ -37,7 +38,7 @@
 				<Table.Cell>
 					{#if product.isAvailableForPurchase}
 						<span class="sr-only">Available</span>
-						<Check />
+						<CircleCheckBig />
 					{:else}
 						<span class="sr-only">Unavailable</span>
 						<CircleX />
@@ -58,7 +59,7 @@
 								>Download</DropdownMenu.Item
 							>
 							<!-- edit product details -->
-							<DropdownMenu.Item href="/admin/products/{product.id}/edit" download
+							<DropdownMenu.Item href="/admin/products/{product.id}/edit"
 								>Edit</DropdownMenu.Item
 							>
 							<!-- Toggle status Active/Inactive Status -->
