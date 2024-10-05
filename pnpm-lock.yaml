@@ -23,6 +23,9 @@ importers:
       lucide-svelte:
         specifier: ^0.446.0
         version: 0.446.0(svelte@5.0.0-next.260)
+      svelte-french-toast:
+        specifier: ^1.2.0
+        version: 1.2.0(svelte@5.0.0-next.260)
       sveltekit-superforms:
         specifier: ^2.19.0
         version: 2.19.0(@sveltejs/kit@2.6.1(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.260)(vite@5.4.8(@types/node@22.7.4)))(svelte@5.0.0-next.260)(vite@5.4.8(@types/node@22.7.4)))(@types/json-schema@7.0.15)(svelte@5.0.0-next.260)
@@ -1587,6 +1590,16 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-french-toast@1.2.0:
+    resolution: {integrity: sha512-5PW+6RFX3xQPbR44CngYAP1Sd9oCq9P2FOox4FZffzJuZI2mHOB7q5gJBVnOiLF5y3moVGZ7u2bYt7+yPAgcEQ==}
+    peerDependencies:
+      svelte: ^3.57.0 || ^4.0.0
+
+  svelte-writable-derived@3.1.1:
+    resolution: {integrity: sha512-w4LR6/bYZEuCs7SGr+M54oipk/UQKtiMadyOhW0PTwAtJ/Ai12QS77sLngEcfBx2q4H8ZBQucc9ktSA5sUGZWw==}
+    peerDependencies:
+      svelte: ^3.2.1 || ^4.0.0-next.1 || ^5.0.0-next.94
 
   svelte@5.0.0-next.260:
     resolution: {integrity: sha512-TGcvG71DUklf5P4UmJxOQiVxWYLPp4c6o+NUjmVMsAXKsCMXOTXw+QpnmEWw5D95Sj7SrmAGeIT+p/uvHAUZXg==}
@@ -3192,6 +3205,15 @@ snapshots:
       postcss: 8.4.47
       postcss-scss: 4.0.9(postcss@8.4.47)
     optionalDependencies:
+      svelte: 5.0.0-next.260
+
+  svelte-french-toast@1.2.0(svelte@5.0.0-next.260):
+    dependencies:
+      svelte: 5.0.0-next.260
+      svelte-writable-derived: 3.1.1(svelte@5.0.0-next.260)
+
+  svelte-writable-derived@3.1.1(svelte@5.0.0-next.260):
+    dependencies:
       svelte: 5.0.0-next.260
 
   svelte@5.0.0-next.260:
