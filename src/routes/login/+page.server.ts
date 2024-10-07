@@ -4,6 +4,7 @@ import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { Argon2id } from 'oslo/password';
 import { db, lucia } from '../../hooks.server.js';
+import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {
 	return {
@@ -18,7 +19,7 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		// -------------Create user----------- 
+		// -------------Create user-----------
 		// const userId = generateId(15);
 		// const hashedPassword = await new Argon2id().hash(form.data.password);
 
@@ -39,5 +40,31 @@ export const actions = {
 		// 	...sessionCookie.attributes
 		// })
 
+		// login user ---------------- exist
+		const existingUser = await db.user.findUnique({
+			where: { username: form.data.username.toLowerCase() }
+		});
+		if (!existingUser) {
+			return;
+		}
+		const validPassword = await new Argon2id().verify(
+			// retrive data from db
+			existingUser.hashedPassword!,
+			// retrieve data from client (form)
+			form.data.password
+		);
+
+		if (!validPassword) {
+			return;
+		}
+
+		const session = await lucia.createSession(existingUser.id, {});
+		const sessionCookie = lucia.createSessionCookie(session.id);
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '',
+			...sessionCookie.attributes
+		});
+
+		redirect(302, '/admin');
 	}
 };
