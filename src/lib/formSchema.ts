@@ -11,3 +11,8 @@ export const addFormSchema = z.object({
 		.instanceof(File)
 		.refine((f) => f.size > 0 || f.type.startsWith('image/'), 'max 100kb upload size')
 });
+
+export const loginFormSchema = z.object({
+	username: z.string().min(3),
+	password: z.string().min(8)
+});
